@@ -1,6 +1,8 @@
 package es.uclm.repartodomicilio.business.entity;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Cliente {
@@ -20,17 +22,18 @@ public class Cliente {
     @Column(nullable = false)
     private String contrasena;
 
-    @Column (nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private Direccion direccion;
 
-    // constructor vacío requerido por JPA
-    public Cliente(){}
+    @ManyToMany
+    private List<Restaurante> favoritos = new ArrayList<>();
 
-    //Constructor
-    public Cliente(String dni, String nombre, String apellidos, String contrasena,  String email, Direccion direccion) {
+    public Cliente() {}
+
+    public Cliente(String dni, String nombre, String apellidos, String contrasena, String email, Direccion direccion) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -39,55 +42,35 @@ public class Cliente {
         this.direccion = direccion;
     }
 
-    //Métodos get y set
-
-
     public Long getId() { return id; }
 
     public void setId(Long id) { this.id = id; }
 
-    public String getDni() {
-        return dni;
-    }
+    public String getDni() { return dni; }
 
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
+    public void setDni(String dni) { this.dni = dni; }
 
-    public String getNombre() {
-        return nombre;
-    }
+    public String getNombre() { return nombre; }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public String getApellidos() {
-        return apellidos;
-    }
+    public String getApellidos() { return apellidos; }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
+    public void setApellidos(String apellidos) { this.apellidos = apellidos; }
 
-    public String getContrasena() { return  contrasena; }
+    public String getContrasena() { return contrasena; }
+
     public void setContrasena(String contrasena) { this.contrasena = contrasena; }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getEmail() { return email; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public void setEmail(String email) { this.email = email; }
 
-    public Direccion getDireccion() {
-        return direccion;
-    }
+    public Direccion getDireccion() { return direccion; }
 
-    public void setDireccion(Direccion direccion) {
-        this.direccion = direccion;
-    }
+    public void setDireccion(Direccion direccion) { this.direccion = direccion; }
 
+    public List<Restaurante> getFavoritos() { return favoritos; }
 
+    public void setFavoritos(List<Restaurante> favoritos) { this.favoritos = favoritos; }
 }

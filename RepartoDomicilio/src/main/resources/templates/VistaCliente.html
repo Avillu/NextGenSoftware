@@ -71,8 +71,16 @@
 
 <div class="content">
     <h2>Restaurantes Disponibles</h2>
-    <input type="text" id="search" placeholder="Buscar restaurante por nombre..." onkeyup="filterRestaurants()">
+
+    <!-- Formulario de búsqueda -->
+    <form method="get" action="/Cliente">
+        <input type="text" id="search" name="search" placeholder="Buscar restaurante por nombre o dirección..."
+               th:value="${search}" onkeyup="filterRestaurants()">
+        <button type="submit">Buscar</button>
+    </form>
+
     <div id="restaurantList">
+        <!-- Lista dinámica de restaurantes -->
         <div th:each="restaurante : ${restaurantes}" class="restaurant-item">
             <h3 th:text="${restaurante.nombre}">Nombre del Restaurante</h3>
             <p th:text="${restaurante.direccion}">Dirección del Restaurante</p>
@@ -89,9 +97,9 @@
 
         for (let i = 0; i < restaurants.length; i++) {
             const restaurantName = restaurants[i].getElementsByTagName('h3')[0].textContent.toLowerCase();
-            const restaurantNamePrefix = restaurantName.substring(0, searchInput.length);
+            const restaurantAddress = restaurants[i].getElementsByTagName('p')[0].textContent.toLowerCase();
 
-            if (searchInput === '' || restaurantNamePrefix.startsWith(searchInput)) {
+            if (restaurantName.includes(searchInput) || restaurantAddress.includes(searchInput)) {
                 restaurants[i].style.display = '';
             } else {
                 restaurants[i].style.display = 'none';
